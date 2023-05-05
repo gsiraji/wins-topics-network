@@ -1,0 +1,147 @@
+---
+WiNS Collabathon 2023
+Network Scince Institute at Northeastern University
+Rafiazka Hilman
+
+===============================================================================================================
+===============================================================================================================
+---
+
+# Packages
+We will be using these packages (remove the # in front, to install):
+```{r message=FALSE}
+# install.packages("igraph")
+# install.packages("tidytext")
+# install.packages("tm")
+# install.packages("ggplot2")
+# install.packages("dplyr")
+# install.packages("stringr")
+# install.packages("tidyr")
+# install.packages("purrr")
+# install.packages("arrow")
+# install.packages("ape")
+# install.packages("pluralize")
+# install.packages("networkD3")
+
+library(igraph)
+library(tidytext) #text management
+library(tm) #text mining 
+library(ggplot2) #graphical plot
+library(dplyr) #data management
+library(stringr)
+library(tidyr)
+library(purrr)
+library(arrow)
+library(ape)
+library(pluralize)
+library(networkD3)
+```
+
+
+```{r}
+# load data 
+arxiv_climate_change_bigram_count = read.csv("project_data/topic_topic_freq.csv")
+arxiv_climate_change_bigram_count = arxiv_climate_change_bigram_count %>%
+  rename(
+    weight = frequency,
+    word1 = TopicA_words,
+    word2 = TopicB_words
+  )
+
+arxiv_climate_change_bigram_count
+```
+
+
+Impose edge weight cutoff
+```{r}
+#subset by edge weight cutoff
+climate_change_new <- subset(arxiv_climate_change_bigram_count, #weight >= 5,
+select=c(word1, word2, weight))
+
+arxiv_climate_change_network <-  climate_change_new %>%
+  graph_from_data_frame(directed = TRUE) #directed network
+
+arxiv_climate_change_network <- as.undirected(
+  arxiv_climate_change_network,
+  mode = c("collapse"),
+  edge.attr.comb = igraph_opt("edge.attr.comb") #trasnform as undirected and collpsing edges weight
+)
+
+climate_change_adj <- as_adjacency_matrix(
+  arxiv_climate_change_network,
+  type = c("both"),
+  attr = NULL,
+  edges = FALSE,
+  names = TRUE,
+  sparse = igraph_opt("sparsematrices")
+)
+
+length(V(arxiv_climate_change_network))
+length(E(arxiv_climate_change_network))
+cluster_fast_greedy(arxiv_climate_change_network, weights = E(arxiv_climate_change_network)$weight)
+```
+
+
+Subset network: largest giant connected component (lgcc)
+```{r}
+#largest giant connected component 
+components <- igraph::clusters(arxiv_climate_change_network, mode="weak")
+biggest_cluster_id <- which.max(components$csize)
+
+# ids
+vert_ids <- V(arxiv_climate_change_network)[components$membership == biggest_cluster_id]
+
+# subgraph
+arxiv_climate_change_network_sub <- igraph::induced_subgraph(arxiv_climate_change_network, vert_ids)
+length(V(arxiv_climate_change_network_sub))
+length(E(arxiv_climate_change_network_sub))
+
+##Community structure detection based fast greedy
+fc_climate_change_sub <- cluster_fast_greedy(arxiv_climate_change_network_sub, weights = E(arxiv_climate_change_network_sub)$weight)
+fc_climate_change_sub
+```
+
+Plot phylogram on lgcc
+```{r}
+par(bg = 'black') # set background to black
+plot_dendrogram(fc_climate_change_sub, mode="phylo", colbar = palette(), cex=0.8)
+```
+
+Plot network: lgcc
+```{r}
+#node degree based on its total degree
+V(arxiv_climate_change_network_sub)$degree <- strength(graph = arxiv_climate_change_network_sub, mode="all")
+
+#png("net_climate_change_sub.png", width=600, height=350, res=300)
+#pdf(file = "climate_change_0712_net.pdf"   # The directory you want to save the file in
+    #) # The height of the plot in inches
+par(bg = 'black') # set background to black
+plot(arxiv_climate_change_network_sub, 
+  vertex.color =  "red", 
+  #vertex.size = 0,
+  vertex.size = V(arxiv_climate_change_network_sub)$degree/10000,
+  vertex.label.color = "red", 
+  #vertex.label.cex = log(V(arxiv_climate_change_network_sub)$degree)/100, #vertex label size
+  vertex.label.cex = V(arxiv_climate_change_network_sub)$degree/18000, #vertex label size
+  vertex.label.dist = 0,
+  edge.color ='blue', 
+  edge.width = E(arxiv_climate_change_network_sub)$weight/1000,   
+  main = 'Bigram Network: Climate Change', 
+  alpha = 100, edge.curved=0.4
+)
+#dev.off()
+```
+
+
+Plot 3D network: lgcc
+```{r}
+#3D visualization
+sj_list <- igraph_to_networkD3(arxiv_climate_change_network, what = "both", group=membership(fc_climate_change))
+
+arxiv_climate_change_network_10 <- forceNetwork(Links = sj_list$links, Nodes = sj_list$nodes, Source = 'source',
+             Target = 'target', NodeID = 'name', Group = 'group', linkWidth=sj_list$links$value/10,
+             zoom = TRUE, linkDistance = 5)
+	
+saveNetwork(arxiv_climate_change_network_10, 'arxiv_climate_change_network_10.html', selfcontained = TRUE)
+```
+
