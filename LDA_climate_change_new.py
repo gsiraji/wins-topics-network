@@ -149,3 +149,96 @@ print('\nCoherence Score: ', coherence_lda)
 # pyLDAvis.enable_notebook()
 vis = pyLDAvis.gensim.prepare(lda_model, corpus, id2word)
 pyLDAvis.save_html(vis, "{}/LDA/LDA_visual.html".format(path)) 
+
+
+# get value of topic per document
+# got this from: https://notebook.community/gojomo/gensim/docs/notebooks/topic_methods
+all_topics = lda_model.get_document_topics(corpus, per_word_topics=True)
+
+doc_list = []
+for doc_topics, word_topics, phi_values in all_topics:
+   doc_list.append(doc_topics)
+
+# create documents x topic df
+df = pd.DataFrame(doc_list)
+
+df_all = df[0]
+df_all = df_all.reset_index()
+df_all = df_all.rename({'index': 'document', 0: 'tw' }, axis=1)
+
+for val in df.columns:
+    dval = df[val]
+    dval = dval.reset_index()
+    dval = dval.rename({'index': 'document', val: 'tw' }, axis=1)
+    df_all = pd.concat([df_all,dval])
+
+df_all[['topic', 'weight']] = pd.DataFrame(df_all['tw'].tolist(), index=df_all.index)
+df_all.drop('tw', axis = 1)
+df_all = df_all.dropna()
+df_all['topic'] = df_all['topic'].astype(int)
+
+df_doc_topic = df_all.pivot_table(index='document', 
+                        columns='topic', 
+                        values='weight')
+
+# rename topic columns T#
+for val in df.columns:
+    df_doc_topic = df_doc_topic.rename({val: 'T{}'.format(val) }, axis=1)
+
+df_doc_topic = df_all.pivot_table(index='document', 
+                        columns='topic', 
+                        values='weight')
+
+# save
+df_doc_topic.to_csv("{}/project_data/document_topic.csv".format(path))
+
+
+# create df with top 3 words for each topic
+x = lda_model.show_topics(num_topics=16, num_words=3,formatted=False)
+topics_words = [(tp[0], [wd[0] for wd in tp[1]]) for tp in x]
+print(topics_words)
+df_words = pd.DataFrame(topics_words)
+df_words = df_words.rename({0: 'Topic', 1: 'words' }, axis=1)
+
+# change all values > 0 to 1
+df_doc_topic_1s = df_doc_topic
+for col in df_doc_topic_1s.columns:
+   df_doc_topic_1s.loc[df_doc_topic_1s[col] > 0, col] = 1
+
+# create topic freq df
+df_topic_freq = pd.DataFrame()
+for val1 in df_doc_topic_1s.columns:
+    df_sub = df_doc_topic.groupby([val1]).size().reset_index(name="frequency")
+    df_sub["Topic"] = val1
+    df_sub = df_sub.drop([val1], axis = 1)
+
+    df_topic_freq = pd.concat([df_sub,df_topic_freq])
+
+# add top 3 words
+df_topic_freq = df_topic_freq.merge(df_words, how='left', on='Topic')
+
+# save
+df_topic_freq.to_csv("{}/project_data/topic_freq.csv".format(path))
+
+# create topic x topic freq df
+df_topic = pd.DataFrame()
+for val1 in df_doc_topic_1s.columns:
+    for val2 in df_doc_topic_1s.columns:
+        if val1 == val2:
+            x = 1
+        else:
+            df_sub = df_doc_topic.groupby([val1, val2]).size().reset_index(name="frequency")
+            df_sub["TopicA"] = val1
+            df_sub["TopicB"] = val2
+            df_sub = df_sub.drop([val1,val2], axis = 1)
+
+            df_topic = pd.concat([df_sub,df_topic])
+
+# add top 3 words
+df_wordsA = df_words.rename({"Topic": "TopicA", "words": "TopicA_words"}, axis=1)
+df_topic = df_topic.merge(df_wordsA, how='left', on='TopicA')
+df_wordsB = df_words.rename({"Topic": "TopicB", "words": "TopicB_words"}, axis=1)
+df_topic = df_topic.merge(df_wordsB, how='left', on='TopicB')
+
+# save
+df_topic.to_csv("{}/project_data/topic_topic_freq.csv".format(path))
