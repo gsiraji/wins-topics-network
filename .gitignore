@@ -1,2 +1,12 @@
 
+<<<<<<< HEAD
+project_data/kws.txt
+project_data/nlp_abstracts_3.txt
+project_data/nlp_abstracts_2.txt
+project_data/nlp_abstracts_1.txt
+project_data/climate_abstracts_3.txt
+project_data/climate_abstracts_2.txt
+project_data/climate_abstracts_1.txt
+=======
 .DS_Store
+>>>>>>> bce8370a747205c8145286c50a5d488de170d8ee
