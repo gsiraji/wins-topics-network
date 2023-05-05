@@ -194,7 +194,7 @@ df_doc_topic.to_csv("{}/project_data/document_topic.csv".format(path))
 
 
 # create df with top 3 words for each topic
-x = lda_model.show_topics(num_topics=15, num_words=3,formatted=False)
+x = lda_model.show_topics(num_topics=16, num_words=3,formatted=False)
 topics_words = [(tp[0], [wd[0] for wd in tp[1]]) for tp in x]
 print(topics_words)
 df_words = pd.DataFrame(topics_words)
