@@ -30,7 +30,7 @@ Result Examples:
 >
 > ​	On **NLP** Articles:
 >
-> ​			[Barchart of topics on NLP from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/	wins-topics-network/blob/main/BERT/nlp_barchart0.html)
+> ​			[Barchart of topics on NLP from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_barchart0.html)
 >
 > ​			[Barchart of topics on NLP from 2007 to 2012](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_barchart1.html)
 >
