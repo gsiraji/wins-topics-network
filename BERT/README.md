@@ -1,6 +1,6 @@
 # Topic modeling using BERTopic
 
-Topic modeling using BERTopic v0.15.0 package of Climate Change articles and NLP articles on arXiv between the time from May 23, 2007 to April 28, 2023.
+Topic modeling on Climate Change articles and NLP articles uploaded between time from May 23, 2007 to April 28, 2023 on arXiv using BERTopic v0.15.0 package.
 
 BERTopic Homepage: https://maartengr.github.io/BERTopic/index.html
 
