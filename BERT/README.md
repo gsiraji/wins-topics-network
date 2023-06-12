@@ -26,7 +26,7 @@ Result Examples:
 >
 > ​			[Visualization of intertopic distance in 2D on climate change from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_topics.html)
 >
-> ​			[Top 8 climate change topics over time from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_topics.over_time.html)
+> ​			[Top 8 climate change topics over time from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_topics_over_time.html)
 
 - On **NLP** Articles:
 
