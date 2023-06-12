@@ -16,41 +16,45 @@ conda activate wins-project-bert
 To view html results, use: \
 https://htmlpreview.github.io/
 
-Examples:
+Result Examples:
 
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/cc_barchart0.html
+> ​	On Climate Change Articles:
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/cc_docs.html
+> ​		[Barchart of topics on climate change from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_barchart0.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/cc_topics.html
+> ​	[	Visualization of documents and topics in 2D on climate change from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_docs.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/cc_topics.over_time.html
+> ​	[	Visualization of intertopic distance in 2D on climate change from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_topics.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_barchart0.html
+> [		Top 8 climate change topics over time from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/cc_topics.over_time.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_barchart1.html
+> ​	On NLP Articles:
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_barchart2.html
+> [		Barchart of topics on NLP from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/	wins-topics-network/blob/main/BERT/nlp_barchart0.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_barchart3.html
+> ​		[Barchart of topics on NLP from 2007 to 2012](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_barchart1.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_docs.html
+> ​	[	Barchart of topics on NLP from 2013 to 2018](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_barchart2.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_docs_t1.html
+> ​	[	Barchart of topics on NLP from 2019 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_barchart3.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_docs_t2.html
+> ​		[Visualization of documents and topics in 2D on NLP from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_docs.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_docs_t3.html
+> [		Visualization of documents and topics in 2D on NLP from 2007 to 2012](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_docs_t1.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_topics0.html
+> ​	[	Visualization of documents and topics in 2D on NLP from 2013 to 2018](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_docs_t2.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_topics1.html
+> ​		[Visualization of documents and topics in 2D on NLP from 2019 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_docs_t3.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_topics2.html
+> ​	[	Visualization of intertopic distance in 2D on NLP from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_topics0.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_topics3.html
+> ​		[Visualization of intertopic distance in 2D on NLP from 2007 to 2012](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_topics1.html)
 >
-> https://github.com/gsiraji/wins-topics-network/tree/main/BERT/nlp_topics_over_time.html
+> ​	[	Visualization of intertopic distance in 2D on NLP from 2013 to 2018](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_topics2.html)
+>
+> ​		[Visualization of intertopic distance in 2D on NLP from 2019 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_topics3.html)
+>
+> ​		[Top 8 NLP topics over time from 2007 to 2023](https://htmlpreview.github.io/?https://github.com/gsiraji/wins-topics-network/blob/main/BERT/nlp_topics_over_time.html)
 
 
 
